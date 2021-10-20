@@ -10,4 +10,4 @@ REM // See the License for the permissions and limitations.                //
 
 echo "Compile for JVM"
 
-javac -cp "./;../" ConsoleFun_test.java
+javac -cp "./;../../" ConsoleFun_Test.java

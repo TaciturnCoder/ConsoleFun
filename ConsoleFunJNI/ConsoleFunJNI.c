@@ -10,17 +10,17 @@
 
 #include <jni.h>
 #include "../ConsoleFun.h"
-#include "./ConsoleFun_ConsoleFun.h"
+#include "./ConsoleFunJNI_ConsoleFun.h"
 
 cfopts jobject_to_cfopts(JNIEnv *, jobject);
 
-JNIEXPORT void JNICALL Java_ConsoleFun_ConsoleFun_gotorc(JNIEnv *env, jobject obj, jint row, jint col)
+JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_gotorc(JNIEnv *env, jobject obj, jint row, jint col)
 {
     ConsoleFun_gotorc(row, col);
     return;
 }
 
-JNIEXPORT void JNICALL Java_ConsoleFun_ConsoleFun_setcolor(JNIEnv *env, jobject obj, jint fg, jint bg)
+JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_setcolor(JNIEnv *env, jobject obj, jint fg, jint bg)
 {
 #ifdef __linux__
     if (fg == 1 || fg == 3)
@@ -38,14 +38,14 @@ JNIEXPORT void JNICALL Java_ConsoleFun_ConsoleFun_setcolor(JNIEnv *env, jobject 
     return;
 }
 
-JNIEXPORT void JNICALL Java_ConsoleFun_ConsoleFun_emptyrect(JNIEnv *env, jobject obj, jint row, jint col, jobject opts)
+JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_emptyrect(JNIEnv *env, jobject obj, jint row, jint col, jobject opts)
 {
     cfopts options = jobject_to_cfopts(env, opts);
     ConsoleFun_emptyrect(row, col, options);
     return;
 }
 
-JNIEXPORT void JNICALL Java_ConsoleFun_ConsoleFun_filledrect(JNIEnv *env, jobject obj, jint row, jint col, jobject opts)
+JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_filledrect(JNIEnv *env, jobject obj, jint row, jint col, jobject opts)
 {
     cfopts options = jobject_to_cfopts(env, opts);
     ConsoleFun_filledrect(row, col, options);

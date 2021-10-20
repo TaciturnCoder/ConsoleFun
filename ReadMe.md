@@ -10,3 +10,6 @@
 
 # ConsoleFun
 Console Manipulation Functions for C/C++ and Java (using JNI).
+
+# Change Log
+See [Changes.md](./Changes.md) for more information.

@@ -8,28 +8,31 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-package ConsoleFun_test_Java;
+import ConsoleFunJNI.ConsoleFun;
+import ConsoleFunJNI.cfopts;
 
-import ConsoleFun.ConsoleFun;
-import ConsoleFun.cfopts;
+import java.io.File;
 
-public class ConsoleFun_test {
+public class ConsoleFun_Test {
     public static void main(String args[]) {
+        File lib = new File("../../" + System.mapLibraryName("ConsoleFunJNI"));
+        System.load(lib.getAbsolutePath());
+
         cfopts opts = new cfopts();
 
         opts.rows = 20;
-        opts.cols = 20;
+        opts.cols = 40;
 
         opts.fg = 0;
         opts.bg = ConsoleFun.COLOR_YELLOW;
 
-        ConsoleFun.emptyrect(1, 1, opts);
+        ConsoleFun.emptyrect(0, 0, opts);
 
         opts.rows -= 4;
         opts.cols -= 4;
         opts.fg = ConsoleFun.COLOR_BLACK;
         opts.bg = ConsoleFun.COLOR_RED;
-        ConsoleFun.filledrect(3, 3, opts);
+        ConsoleFun.filledrect(2, 2, opts);
 
         ConsoleFun.gotorc(10, 15);
         ConsoleFun.setcolor(ConsoleFun.COLOR_CYAN, ConsoleFun.COLOR_BLACK);

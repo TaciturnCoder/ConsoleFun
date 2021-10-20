@@ -1,6 +1,5 @@
 #!/bin/bash -x
 
-
 # // Copyright 2021 Dwij Bavisi <dwijbavisi@gmail.com>                   //
 # //                                                                     //
 # // Licensed under the Taciturn Coder License v0.0.1, the "License";    //
@@ -11,10 +10,10 @@
 # // See the License for the permissions and limitations.                //
 
 
-FILE=ConsoleFun
+FILE=ConsoleFun_Test
 
 echo "Compile for Windows"
-x86_64-w64-mingw32-gcc -I"../" -o "./$FILE""_test.exe" "./$FILE""_test.c"
+x86_64-w64-mingw32-gcc -o "./$FILE.exe" "./$FILE.c"
 
 echo "Compile for Linux"
-gcc -I"../" -o "./$FILE""_test.out" "./$FILE""_test.c"
+gcc -o "./$FILE.out" "./$FILE.c"

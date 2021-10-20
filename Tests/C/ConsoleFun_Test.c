@@ -9,7 +9,7 @@
 // See the License for the permissions and limitations.                //
 
 #include <stdio.h>
-#include "../ConsoleFun.h"
+#include "../../ConsoleFun.h"
 
 int main()
 {
@@ -26,7 +26,7 @@ int main()
 
     ConsoleFun_gotorc(10, 15);
     ConsoleFun_setcolor(ConsoleFun_COLOR_CYAN, ConsoleFun_COLOR_BLACK);
-    printf("Hello World!\n\tDIMENSIONS: %dx%d", opts.rows, opts.cols);
+    printf("Hello World!");
 
     return 0;
 }

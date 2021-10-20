@@ -9,14 +9,14 @@
 # //                                                                     //
 # // See the License for the permissions and limitations.                //
 
-FILE=ConsoleFun
+FILE=ConsoleFunJNI
 
 JDK="/mnt/z/Program Files/Java/jdk-16.0.2/include"
 JDK_win32="/mnt/z/Program Files/Java/jdk-16.0.2/include/win32"
 echo "Compile for Windows"
-x86_64-w64-mingw32-gcc -fPIC -shared "-I$JDK" "-I$JDK_win32" -I"../" -o "./$FILE""_JNI.dll" "./$FILE""_JNI.c"
+x86_64-w64-mingw32-gcc -fPIC -shared "-I$JDK" "-I$JDK_win32" -o "../$FILE.dll" "./$FILE.c"
 
 JDK="/usr/lib/jvm/jdk-16.0.2/include"
 JDK_linux="/usr/lib/jvm/jdk-16.0.2/include/linux"
 echo "Compile for Linux"
-gcc -fPIC -shared "-I$JDK" "-I$JDK_linux" -I"../" -o "./$FILE""_JNI.so" "./$FILE""_JNI.c"
+gcc -fPIC -shared "-I$JDK" "-I$JDK_linux" -I"../" -o "../$FILE.so" "./$FILE.c"

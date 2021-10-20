@@ -8,7 +8,7 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-package ConsoleFun;
+package ConsoleFunJNI;
 
 public class cfopts {
     public int rows;

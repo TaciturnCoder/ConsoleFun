@@ -10,5 +10,11 @@
 
 # Change Log
 
-### [7th October 2021]
+### [20th October 2021]
+* Added .gitignore
+* Restructured Project Folders
+* Improved code for JNI
+* Minor Changes
+
+### [07th October 2021]
 * Initial Commit

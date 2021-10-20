@@ -8,7 +8,7 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-package ConsoleFun;
+package ConsoleFunJNI;
 
 public class ConsoleFun {
     public static int COLOR_BLACK = 0;
@@ -29,9 +29,4 @@ public class ConsoleFun {
     public native static void emptyrect(int row, int col, cfopts opts);
 
     public native static void filledrect(int row, int col, cfopts opts);
-
-    static {
-        // System.load("mynativelib.so");
-        System.load("P:/ConsoleFun/ConsoleFun/ConsoleFun_JNI.dll");
-    }
 }
