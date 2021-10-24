@@ -14,13 +14,37 @@
 
 cfopts jobject_to_cfopts(JNIEnv *, jobject);
 
-JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_gotorc(JNIEnv *env, jobject obj, jint row, jint col)
+JNIEXPORT jobject JNICALL Java_ConsoleFunJNI_ConsoleFun_getopts(JNIEnv *env, jclass class)
+{
+    cfopts opts = ConsoleFun_getopts();
+
+    jclass _cfopts = (*env)->FindClass(env, "ConsoleFunJNI/cfopts");
+
+    printf("%d", _cfopts == NULL);
+
+    jmethodID constructor = (*env)->GetMethodID(env, _cfopts, "<init>", "()V");
+    jobject newObj = (*env)->NewObject(env, _cfopts, constructor);
+
+    jfieldID _rows = (*env)->GetFieldID(env, _cfopts, "rows", "I");
+    jfieldID _cols = (*env)->GetFieldID(env, _cfopts, "cols", "I");
+    jfieldID _fg = (*env)->GetFieldID(env, _cfopts, "fg", "I");
+    jfieldID _bg = (*env)->GetFieldID(env, _cfopts, "bg", "I");
+
+    (*env)->SetIntField(env, newObj, _rows, opts.rows);
+    (*env)->SetIntField(env, newObj, _cols, opts.cols);
+    (*env)->SetIntField(env, newObj, _fg, opts.fg);
+    (*env)->SetIntField(env, newObj, _bg, opts.bg);
+
+    return newObj;
+}
+
+JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_gotorc(JNIEnv *env, jclass class, jint row, jint col)
 {
     ConsoleFun_gotorc(row, col);
     return;
 }
 
-JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_setcolor(JNIEnv *env, jobject obj, jint fg, jint bg)
+JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_setcolor(JNIEnv *env, jclass class, jint fg, jint bg)
 {
 #ifdef __linux__
     if (fg == 1 || fg == 3)
@@ -38,14 +62,14 @@ JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_setcolor(JNIEnv *env, jobje
     return;
 }
 
-JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_emptyrect(JNIEnv *env, jobject obj, jint row, jint col, jobject opts)
+JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_emptyrect(JNIEnv *env, jclass class, jint row, jint col, jobject opts)
 {
     cfopts options = jobject_to_cfopts(env, opts);
     ConsoleFun_emptyrect(row, col, options);
     return;
 }
 
-JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_filledrect(JNIEnv *env, jobject obj, jint row, jint col, jobject opts)
+JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_filledrect(JNIEnv *env, jclass class, jint row, jint col, jobject opts)
 {
     cfopts options = jobject_to_cfopts(env, opts);
     ConsoleFun_filledrect(row, col, options);

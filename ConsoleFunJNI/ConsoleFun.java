@@ -20,7 +20,7 @@ public class ConsoleFun {
     public static int COLOR_YELLOW = 6;
     public static int COLOR_WHITE = 7;
 
-    // public native cfopts getopts();
+    public native static cfopts getopts();
 
     public native static void gotorc(int row, int col);
 

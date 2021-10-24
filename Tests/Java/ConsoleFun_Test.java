@@ -18,12 +18,8 @@ public class ConsoleFun_Test {
         File lib = new File("../../" + System.mapLibraryName("ConsoleFunJNI"));
         System.load(lib.getAbsolutePath());
 
-        cfopts opts = new cfopts();
+        cfopts opts = ConsoleFun.getopts();
 
-        opts.rows = 20;
-        opts.cols = 40;
-
-        opts.fg = 0;
         opts.bg = ConsoleFun.COLOR_YELLOW;
 
         ConsoleFun.emptyrect(0, 0, opts);

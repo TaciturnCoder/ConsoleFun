@@ -10,6 +10,10 @@
 
 # Change Log
 
+### [24th October 2021]
+* Added getopts support for JNI
+* Bug Fixes
+
 ### [20th October 2021]
 * Added .gitignore
 * Restructured Project Folders
