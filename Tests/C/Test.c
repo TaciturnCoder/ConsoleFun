@@ -8,15 +8,29 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-package ConsoleFunJNI;
+#include <stdio.h>
+#include "../../Headers/ConsoleFun.h"
 
-public class CFOpts {
-    public int Row;
-    public int Col;
+int main()
+{
+    CFOpts Options = ConsoleFun.GetOpts();
 
-    public int Rows;
-    public int Cols;
+    Options.BG = ConsoleFun.Color.Yellow;
+    Options.Row = 0;
+    Options.Col = 0;
+    ConsoleFun.EmptyRect(Options);
 
-    public int FG;
-    public int BG;
+    Options.Row = 2;
+    Options.Col = 2;
+    Options.Rows -= 4;
+    Options.Cols -= 4;
+    Options.FG = ConsoleFun.Color.Black;
+    Options.BG = ConsoleFun.Color.Red;
+    ConsoleFun.FilledRect(Options);
+
+    ConsoleFun.GotoRC(10, 15);
+    ConsoleFun.SetColor(ConsoleFun.Color.Cyan, ConsoleFun.Color.Black);
+    printf("Hello World!");
+
+    return 0;
 }

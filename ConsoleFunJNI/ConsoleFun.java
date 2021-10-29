@@ -10,23 +10,74 @@
 
 package ConsoleFunJNI;
 
+import java.io.File;
+
 public class ConsoleFun {
-    public static int COLOR_BLACK = 0;
-    public static int COLOR_BLUE = 1;
-    public static int COLOR_GREEN = 2;
-    public static int COLOR_CYAN = 3;
-    public static int COLOR_RED = 4;
-    public static int COLOR_MAGENTA = 5;
-    public static int COLOR_YELLOW = 6;
-    public static int COLOR_WHITE = 7;
+    public static class Color {
+        public static int Black = 0;
+        public static int Blue = 1;
+        public static int Green = 2;
+        public static int Cyan = 3;
+        public static int Red = 4;
+        public static int Magenta = 5;
+        public static int Yellow = 6;
+        public static int White = 7;
+    }
 
-    public native static cfopts getopts();
+    public native static CFOpts GetOpts();
 
-    public native static void gotorc(int row, int col);
+    public native static void GotoRC(int Row, int Col);
 
-    public native static void setcolor(int fg, int bg);
+    public native static void SetColor(int FG, int BG);
 
-    public native static void emptyrect(int row, int col, cfopts opts);
+    public static void EmptyRect(CFOpts Options) {
+        int i;
 
-    public native static void filledrect(int row, int col, cfopts opts);
+        SetColor(Options.FG, Options.BG);
+
+        GotoRC(Options.Row, Options.Col);
+        for (i = 0; i < Options.Cols; i += 1) {
+            System.out.print(" ");
+        }
+
+        GotoRC(Options.Row + Options.Rows - 1, Options.Col);
+        for (i = 0; i < Options.Cols; i += 1) {
+            System.out.print(" ");
+        }
+
+        for (i = 2; i < Options.Rows; i += 1) {
+            GotoRC(Options.Row + i - 1, Options.Col);
+            System.out.print(" ");
+            GotoRC(Options.Row + i - 1, Options.Col + Options.Cols - 1);
+            System.out.print(" ");
+        }
+        return;
+    } // EmptyRect
+
+    public static void FilledRect(CFOpts Options) {
+        for (; Options.Rows > 0;) {
+            EmptyRect(Options);
+            Options.Row += 1;
+            Options.Col += 1;
+            Options.Rows -= 2;
+            Options.Cols -= 2;
+        }
+
+        return;
+    } // FilledRect
+
+    public static void LoadLib(String relativePath) {
+        String Arch = System.getProperty("os.arch");
+        String LibName = "ConsoleFunJNI";
+
+        if (Arch.equals("x86")) {
+            LibName = LibName + "32";
+        } else if (Arch.equals("amd64")) {
+            LibName = LibName + "64";
+        }
+
+        File Lib = new File(relativePath + "/Bin/" + System.mapLibraryName(LibName));
+
+        System.load(Lib.getAbsolutePath());
+    }
 }

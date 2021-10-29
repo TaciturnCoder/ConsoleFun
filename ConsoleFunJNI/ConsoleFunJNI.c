@@ -9,93 +9,87 @@
 // See the License for the permissions and limitations.                //
 
 #include <jni.h>
-#include "../ConsoleFun.h"
+#include "../Headers/ConsoleFun.h"
 #include "./ConsoleFunJNI_ConsoleFun.h"
 
-cfopts jobject_to_cfopts(JNIEnv *, jobject);
+/*CFOpts _CFOpts2CFOpts(JNIEnv *, jobject);*/
 
-JNIEXPORT jobject JNICALL Java_ConsoleFunJNI_ConsoleFun_getopts(JNIEnv *env, jclass class)
+JNIEXPORT jobject JNICALL Java_ConsoleFunJNI_ConsoleFun_GetOpts(JNIEnv *_Env, jclass _Class)
 {
-    cfopts opts = ConsoleFun_getopts();
+    CFOpts Options = ConsoleFun.GetOpts();
 
-    jclass _cfopts = (*env)->FindClass(env, "ConsoleFunJNI/cfopts");
+    jclass _CFOpts = (*_Env)->FindClass(_Env, "ConsoleFunJNI/CFOpts");
 
-    printf("%d", _cfopts == NULL);
+    jmethodID _Constructor = (*_Env)->GetMethodID(_Env, _CFOpts, "<init>", "()V");
+    jobject _Options = (*_Env)->NewObject(_Env, _CFOpts, _Constructor);
 
-    jmethodID constructor = (*env)->GetMethodID(env, _cfopts, "<init>", "()V");
-    jobject newObj = (*env)->NewObject(env, _cfopts, constructor);
+    jfieldID _Row = (*_Env)->GetFieldID(_Env, _CFOpts, "Row", "I");
+    jfieldID _Col = (*_Env)->GetFieldID(_Env, _CFOpts, "Col", "I");
+    jfieldID _Rows = (*_Env)->GetFieldID(_Env, _CFOpts, "Rows", "I");
+    jfieldID _Cols = (*_Env)->GetFieldID(_Env, _CFOpts, "Cols", "I");
+    jfieldID _FG = (*_Env)->GetFieldID(_Env, _CFOpts, "FG", "I");
+    jfieldID _BG = (*_Env)->GetFieldID(_Env, _CFOpts, "BG", "I");
 
-    jfieldID _rows = (*env)->GetFieldID(env, _cfopts, "rows", "I");
-    jfieldID _cols = (*env)->GetFieldID(env, _cfopts, "cols", "I");
-    jfieldID _fg = (*env)->GetFieldID(env, _cfopts, "fg", "I");
-    jfieldID _bg = (*env)->GetFieldID(env, _cfopts, "bg", "I");
+    (*_Env)->SetIntField(_Env, _Options, _Row, Options.Row);
+    (*_Env)->SetIntField(_Env, _Options, _Col, Options.Col);
+    (*_Env)->SetIntField(_Env, _Options, _Rows, Options.Rows);
+    (*_Env)->SetIntField(_Env, _Options, _Cols, Options.Cols);
+    (*_Env)->SetIntField(_Env, _Options, _FG, Options.FG);
+    (*_Env)->SetIntField(_Env, _Options, _BG, Options.BG);
 
-    (*env)->SetIntField(env, newObj, _rows, opts.rows);
-    (*env)->SetIntField(env, newObj, _cols, opts.cols);
-    (*env)->SetIntField(env, newObj, _fg, opts.fg);
-    (*env)->SetIntField(env, newObj, _bg, opts.bg);
-
-    return newObj;
+    return _Options;
 }
 
-JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_gotorc(JNIEnv *env, jclass class, jint row, jint col)
+JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_GotoRC(JNIEnv *_Env, jclass _Class, jint Row, jint Col)
 {
-    ConsoleFun_gotorc(row, col);
+    ConsoleFun.GotoRC(Row, Col);
     return;
 }
 
-JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_setcolor(JNIEnv *env, jclass class, jint fg, jint bg)
+JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_SetColor(JNIEnv *_Env, jclass _Class, jint FG, jint BG)
 {
 #ifdef __linux__
-    if (fg == 1 || fg == 3)
-        fg += 3;
-    else if (fg == 4 || fg == 6)
-        fg -= 3;
+    if (FG == 1 || FG == 3)
+        FG += 3;
+    else if (FG == 4 || FG == 6)
+        FG -= 3;
 
-    if (bg == 1 || bg == 3)
-        bg += 3;
-    else if (bg == 4 || bg == 6)
-        bg -= 3;
+    if (BG == 1 || BG == 3)
+        BG += 3;
+    else if (BG == 4 || BG == 6)
+        BG -= 3;
 #endif
 
-    ConsoleFun_setcolor(fg, bg);
+    ConsoleFun.SetColor(FG, BG);
     return;
 }
 
-JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_emptyrect(JNIEnv *env, jclass class, jint row, jint col, jobject opts)
+/*CFOpts _CFOpts2CFOpts(JNIEnv *_Env, jobject _Options)
 {
-    cfopts options = jobject_to_cfopts(env, opts);
-    ConsoleFun_emptyrect(row, col, options);
-    return;
-}
+    CFOpts Options;
 
-JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_filledrect(JNIEnv *env, jclass class, jint row, jint col, jobject opts)
-{
-    cfopts options = jobject_to_cfopts(env, opts);
-    ConsoleFun_filledrect(row, col, options);
-    return;
-}
+    jclass _CFOpts = (*_Env)->GetObjectClass(_Env, _Options);
 
-cfopts jobject_to_cfopts(JNIEnv *env, jobject obj)
-{
-    cfopts opts;
+    jfieldID _Row = (*_Env)->GetFieldID(_Env, _CFOpts, "Row", "I");
+    jfieldID _Col = (*_Env)->GetFieldID(_Env, _CFOpts, "Col", "I");
+    jfieldID _Rows = (*_Env)->GetFieldID(_Env, _CFOpts, "Rows", "I");
+    jfieldID _Cols = (*_Env)->GetFieldID(_Env, _CFOpts, "Cols", "I");
+    jfieldID _FG = (*_Env)->GetFieldID(_Env, _CFOpts, "FG", "I");
+    jfieldID _BG = (*_Env)->GetFieldID(_Env, _CFOpts, "BG", "I");
 
-    jclass _cfopts = (*env)->GetObjectClass(env, obj);
+    jint Row = (*_Env)->GetIntField(_Env, _Options, _Row);
+    jint Col = (*_Env)->GetIntField(_Env, _Options, _Col);
+    jint Rows = (*_Env)->GetIntField(_Env, _Options, _Rows);
+    jint Cols = (*_Env)->GetIntField(_Env, _Options, _Cols);
+    jint FG = (*_Env)->GetIntField(_Env, _Options, _FG);
+    jint BG = (*_Env)->GetIntField(_Env, _Options, _BG);
 
-    jfieldID _rows = (*env)->GetFieldID(env, _cfopts, "rows", "I");
-    jfieldID _cols = (*env)->GetFieldID(env, _cfopts, "cols", "I");
-    jfieldID _fg = (*env)->GetFieldID(env, _cfopts, "fg", "I");
-    jfieldID _bg = (*env)->GetFieldID(env, _cfopts, "bg", "I");
+    Options.Rows = Row;
+    Options.Cols = Col;
+    Options.Rows = Rows;
+    Options.Cols = Cols;
+    Options.FG = FG;
+    Options.BG = BG;
 
-    jint rows = (*env)->GetIntField(env, obj, _rows);
-    jint cols = (*env)->GetIntField(env, obj, _cols);
-    jint fg = (*env)->GetIntField(env, obj, _fg);
-    jint bg = (*env)->GetIntField(env, obj, _bg);
-
-    opts.rows = rows;
-    opts.cols = cols;
-    opts.fg = fg;
-    opts.bg = bg;
-
-    return opts;
-}
+    return Options;
+}*/

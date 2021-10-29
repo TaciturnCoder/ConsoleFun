@@ -8,15 +8,30 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-package ConsoleFunJNI;
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-public class CFOpts {
-    public int Row;
-    public int Col;
+#ifdef ConsoleFun_Include
 
-    public int Rows;
-    public int Cols;
+    void ConsoleFun_GotoRC(int Row, int Col)
+    {
+#ifdef __linux__
+        printf("%c[%d;%df", 0x1B, Row + 1, Col + 1);
+#elif _WIN32
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        COORD Coordinates;
 
-    public int FG;
-    public int BG;
+        Coordinates.X = Col;
+        Coordinates.Y = Row;
+        SetConsoleCursorPosition(hConsole, Coordinates);
+#endif
+        return;
+    } // ConsoleFun_GotoRC
+
+#endif // ConsoleFun_Include
+
+#ifdef __cplusplus
 }
+#endif

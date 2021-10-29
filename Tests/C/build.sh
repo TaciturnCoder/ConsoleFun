@@ -10,7 +10,7 @@
 # // See the License for the permissions and limitations.                //
 
 
-FILE=ConsoleFun_Test
+FILE=Test
 
 echo "Compile for Windows"
 x86_64-w64-mingw32-gcc -o "./$FILE.exe" "./$FILE.c"

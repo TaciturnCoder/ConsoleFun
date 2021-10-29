@@ -8,4 +8,5 @@ REM //         https://taciturncoder.github.io/License/v0-0-1              //
 REM //                                                                     //
 REM // See the License for the permissions and limitations.                //
 
-java -cp "./;../../" ConsoleFun_Test
+cd ../../
+java -cp "./" Tests.Java.Test

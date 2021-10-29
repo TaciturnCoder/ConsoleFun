@@ -9,7 +9,44 @@
 [//]: # ( See the License for the permissions and limitations.                )
 
 # ConsoleFun
-Console Manipulation Functions for C/C++ and Java (using JNI).
+Cross-platform Console Manipulation Functions,
+
+Currently only for C and Java (using JNI) under Windows (32Bit and 64Bit) and Linux (64Bit only).
+
+# Installation Instructions
+
+## Installation for C programs
+Simply include header file `./ConsoleFun/Headers/ConsoleFun.h` in your program.
+
+For example,
+```
+#include "./ConsoleFun/Headers/ConsoleFun.h"
+// Path is relative to where you install ConsoleFun
+```
+
+## Installation for java programs (using JNI)
+Simply include package `ConsoleFunJNI` in your program.
+
+For example,
+```
+import ConsoleFunJNI.ConsoleFun;
+import ConsoleFunJNI.CFOpts;
+
+// OR
+
+import ConsoleFunJNI.*;
+```
+
+And then load library using,
+```
+ConsoleFun.LoadLib("./ConsoleFun/ConsoleFunJNI");
+// Path is relative to where you install ConsoleFun
+```
 
 # Change Log
 See [Changes.md](./Changes.md) for more information.
+
+# License
+Licensed under the Taciturn Coder License v0.0.1
+
+See [License.md](./License.md) for more information.

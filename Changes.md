@@ -10,6 +10,12 @@
 
 # Change Log
 
+### [29th October 2021]
+* Improved Build Process (Fixed issue #1 ?)
+* Improved Cross-Platform Method Syntax
+* Release ConsoleFun-v0-0-1-beta
+* Other Minor Fixes
+
 ### [24th October 2021]
 * Added getopts support for JNI
 * Bug Fixes

@@ -8,15 +8,27 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-package ConsoleFunJNI;
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-public class CFOpts {
-    public int Row;
-    public int Col;
+#ifdef ConsoleFun_Include
 
-    public int Rows;
-    public int Cols;
+    void ConsoleFun_SetColor(int FG, int BG)
+    {
+#ifdef __linux__
+        printf("%c[%d;%dm", 0x1B, FG + 30, BG + 40);
+#elif _WIN32
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    public int FG;
-    public int BG;
+        SetConsoleTextAttribute(hConsole, BG * 16 + FG);
+#endif
+        return;
+    } // ConsoleFun_SetColor
+
+#endif // ConsoleFun_Include
+
+#ifdef __cplusplus
 }
+#endif

@@ -10,7 +10,7 @@ REM // See the License for the permissions and limitations.                //
 
 echo "Generating JNI header file"
 
-javac cfopts.java
+javac CFOpts.java
 javac -cp "../" ConsoleFun.java
 
 javac -cp "../" -h "./" ConsoleFun.java

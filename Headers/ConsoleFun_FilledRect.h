@@ -8,25 +8,29 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-#include <stdio.h>
-#include "../../ConsoleFun.h"
-
-int main()
+#ifdef __cplusplus
+extern "C"
 {
-    cfopts opts = ConsoleFun_getopts();
+#endif
 
-    opts.bg = ConsoleFun_COLOR_YELLOW;
-    ConsoleFun_emptyrect(0, 0, opts);
+#ifdef ConsoleFun_Include
 
-    opts.rows -= 4;
-    opts.cols -= 4;
-    opts.fg = ConsoleFun_COLOR_BLACK;
-    opts.bg = ConsoleFun_COLOR_RED;
-    ConsoleFun_filledrect(2, 2, opts);
+    void ConsoleFun_FilledRect(CFOpts Options)
+    {
+        for (; Options.Rows > 0;)
+        {
+            ConsoleFun_EmptyRect(Options);
+            Options.Row += 1;
+            Options.Col += 1;
+            Options.Rows -= 2;
+            Options.Cols -= 2;
+        }
 
-    ConsoleFun_gotorc(10, 15);
-    ConsoleFun_setcolor(ConsoleFun_COLOR_CYAN, ConsoleFun_COLOR_BLACK);
-    printf("Hello World!");
+        return;
+    } // ConsoleFun_FilledRect
 
-    return 0;
+#endif // ConsoleFun_Include
+
+#ifdef __cplusplus
 }
+#endif
