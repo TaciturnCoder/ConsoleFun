@@ -8,43 +8,35 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-#ifdef __cplusplus
-extern "C"
+#ifdef ConsoleFun_CFOpts_
+#define ConsoleFun_EmptyRect_ 1
+
+void ConsoleFun_EmptyRect(CFOpts Options)
 {
-#endif
+    int i;
 
-#ifdef ConsoleFun_Include
+    ConsoleFun.SetColor(Options.FG, Options.BG);
 
-    void ConsoleFun_EmptyRect(CFOpts Options)
+    ConsoleFun.GotoRC(Options.Row, Options.Col);
+    for (i = 0; i < Options.Cols; i += 1)
     {
-        int i;
+        printf(" ");
+    }
 
-        ConsoleFun_SetColor(Options.FG, Options.BG);
+    ConsoleFun.GotoRC(Options.Row + Options.Rows - 1, Options.Col);
+    for (i = 0; i < Options.Cols; i += 1)
+    {
+        printf(" ");
+    }
 
-        ConsoleFun_GotoRC(Options.Row, Options.Col);
-        for (i = 0; i < Options.Cols; i += 1)
-        {
-            printf(" ");
-        }
+    for (i = 2; i < Options.Rows; i += 1)
+    {
+        ConsoleFun.GotoRC(Options.Row + i - 1, Options.Col);
+        printf(" ");
+        ConsoleFun.GotoRC(Options.Row + i - 1, Options.Col + Options.Cols - 1);
+        printf(" ");
+    }
+    return;
+} // ConsoleFun_EmptyRect
 
-        ConsoleFun_GotoRC(Options.Row + Options.Rows - 1, Options.Col);
-        for (i = 0; i < Options.Cols; i += 1)
-        {
-            printf(" ");
-        }
-
-        for (i = 2; i < Options.Rows; i += 1)
-        {
-            ConsoleFun_GotoRC(Options.Row + i - 1, Options.Col);
-            printf(" ");
-            ConsoleFun_GotoRC(Options.Row + i - 1, Options.Col + Options.Cols - 1);
-            printf(" ");
-        }
-        return;
-    } // ConsoleFun_EmptyRect
-
-#endif // ConsoleFun_Include
-
-#ifdef __cplusplus
-}
-#endif
+#endif // ConsoleFun_CFOpts_

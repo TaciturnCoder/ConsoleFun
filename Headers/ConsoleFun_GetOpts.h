@@ -8,51 +8,53 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-#ifdef __cplusplus
-extern "C"
+#ifdef ConsoleFun_CFOpts_
+#define ConsoleFun_GetOpts_ 1
+
+CFOpts ConsoleFun_GetOpts()
 {
-#endif
+    CFOpts Options;
 
-#ifdef ConsoleFun_Include
-
-    CFOpts ConsoleFun_GetOpts()
-    {
-        CFOpts Options;
-
-        Options.Row = 0;
-        Options.Col = 0;
+    Options.Row = 0;
+    Options.Col = 0;
 
 #ifdef __linux__
-        struct winsize max;
-        ioctl(0, TIOCGWINSZ, &max);
+    struct winsize max;
+    ioctl(0, TIOCGWINSZ, &max);
 
-        Options.Rows = max.ws_row;
-        Options.Cols = max.ws_col;
+    Options.Cols = max.ws_col;
+    Options.Rows = max.ws_row;
 
-        Options.Col = 0;
-        Options.Row = 0;
+    Options.Col = 0;
+    Options.Row = 0;
 #elif _WIN32
-        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-        CONSOLE_SCREEN_BUFFER_INFO CSBI;
-        COORD Coordinates;
+    HANDLE hConsole;
+    CONSOLE_SCREEN_BUFFER_INFO CSBI;
+    COORD Coordinates;
 
-        GetConsoleScreenBufferInfo(hConsole, &CSBI);
-        Coordinates = CSBI.dwCursorPosition;
+    if (ConsoleFun.Cache.hConsoleOut == NULL)
+    {
+        hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        ConsoleFun.Cache.hConsoleOut = hConsole;
+    }
+    else
+    {
+        hConsole = ConsoleFun.Cache.hConsoleOut;
+    }
 
-        Options.Cols = CSBI.srWindow.Right - CSBI.srWindow.Left + 1;
-        Options.Rows = CSBI.srWindow.Bottom - CSBI.srWindow.Top + 1;
+    GetConsoleScreenBufferInfo(hConsole, &CSBI);
+    Coordinates = CSBI.dwCursorPosition;
 
-        Options.Col = Coordinates.X;
-        Options.Row = Coordinates.Y;
+    Options.Cols = CSBI.srWindow.Right - CSBI.srWindow.Left + 1;
+    Options.Rows = CSBI.srWindow.Bottom - CSBI.srWindow.Top + 1;
+
+    Options.Col = Coordinates.X;
+    Options.Row = Coordinates.Y;
 #endif
-        Options.FG = ConsoleFun_Color.Cyan;
-        Options.BG = ConsoleFun_Color.Black;
+    Options.FG = ConsoleFun.Color.White;
+    Options.BG = ConsoleFun.Color.Black;
 
-        return Options;
-    } // ConsoleFun_GetOpts
+    return Options;
+} // ConsoleFun_GetOpts
 
-#endif // ConsoleFun_Include
-
-#ifdef __cplusplus
-}
-#endif
+#endif // ConsoleFun_CFOpts_

@@ -8,23 +8,24 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-#ifdef ConsoleFun_CFOpts_
-#define ConsoleFun_FilledRect_ 1
+#ifdef ConsoleFun_
+#define ConsoleFun_CFOpts_ 1
 
-void ConsoleFun_FilledRect(CFOpts Options)
+typedef struct
 {
-    CFOpts Temp = ConsoleFun.CloneOpts(Options);
+    int Row;
+    int Col;
 
-    for (; Temp.Rows > 0;)
-    {
-        ConsoleFun.EmptyRect(Temp);
-        Temp.Row += 1;
-        Temp.Col += 1;
-        Temp.Rows -= 2;
-        Temp.Cols -= 2;
-    }
+    int Rows;
+    int Cols;
 
-    return;
-} // ConsoleFun_FilledRect
+    int FG;
+    int BG;
+} CFOpts;
 
-#endif // ConsoleFun_CFOpts_
+CFOpts ConsoleFun_CloneOpts(CFOpts Options)
+{
+    return Options;
+}
+
+#endif // ConsoleFun_

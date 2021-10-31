@@ -9,14 +9,20 @@
 [//]: # ( See the License for the permissions and limitations.                )
 
 # ConsoleFun
-Cross-platform Console Manipulation Functions,
+Console Manipulation Functions
 
-Currently only for C and Java (using JNI) under Windows (32Bit and 64Bit) and Linux (64Bit only).
+For C under Windows (32-bit & 64-bit) and Linux (32-bit & 64-bit)
+
+For Java (version 16 or higher) under JVM (64-bit only) using JNI (under Windows only)
+
+## Source Code
+Published at https://github.com/TaciturnCoder/ConsoleFun
 
 # Installation Instructions
+See folder `Tests/` for more information.
 
 ## Installation for C programs
-Simply include header file `./ConsoleFun/Headers/ConsoleFun.h` in your program.
+Simply include header file `Headers/ConsoleFun.h` in your program.
 
 For example,
 ```
@@ -39,7 +45,7 @@ import ConsoleFunJNI.*;
 
 And then load library using,
 ```
-ConsoleFun.LoadLib("./ConsoleFun/ConsoleFunJNI");
+ConsoleFun.LoadLib("./ConsoleFunJNI");
 // Path is relative to where you install ConsoleFun
 ```
 

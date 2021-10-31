@@ -24,7 +24,24 @@ public class ConsoleFun {
         public static int White = 7;
     }
 
+    public static CFOpts CloneOpts(CFOpts Options) {
+        CFOpts Temp = new CFOpts();
+
+        Temp.Row = Options.Row;
+        Temp.Col = Options.Col;
+
+        Temp.Rows = Options.Rows;
+        Temp.Cols = Options.Cols;
+
+        Temp.FG = Options.FG;
+        Temp.BG = Options.BG;
+
+        return Temp;
+    }
+
     public native static CFOpts GetOpts();
+
+    public native static char GetCh();
 
     public native static void GotoRC(int Row, int Col);
 
@@ -55,16 +72,141 @@ public class ConsoleFun {
     } // EmptyRect
 
     public static void FilledRect(CFOpts Options) {
-        for (; Options.Rows > 0;) {
-            EmptyRect(Options);
-            Options.Row += 1;
-            Options.Col += 1;
-            Options.Rows -= 2;
-            Options.Cols -= 2;
+        CFOpts Temp = CloneOpts(Options);
+
+        for (; Temp.Rows > 0;) {
+            EmptyRect(Temp);
+            Temp.Row += 1;
+            Temp.Col += 1;
+            Temp.Rows -= 2;
+            Temp.Cols -= 2;
         }
 
         return;
     } // FilledRect
+
+    public static char[] ReadBox(CFOpts Options) {
+        int i, j, k = -1, EOL[], SFlag = 0;
+        Boolean JFlag = false;
+        char Ch, Str[];
+        ConsoleFun.FilledRect(Options);
+
+        EOL = new int[Options.Rows + 1];
+        Str = new char[Options.Rows * Options.Cols + 1];
+
+        for (i = 0; i < Options.Rows; i += 1) {
+            ConsoleFun.GotoRC(Options.Row + i, Options.Col);
+
+            for (j = 0; j < Options.Cols; j += 1) {
+                if (JFlag) {
+                    j = EOL[i];
+
+                    ConsoleFun.GotoRC(Options.Row + i, Options.Col + j);
+
+                    if (j + 1 == Options.Cols) {
+                        System.out.print(" \b");
+                    }
+
+                    JFlag = false;
+                }
+
+                Ch = ConsoleFun.GetCh();
+
+                if (Ch == 0x1B) {
+                    SFlag = 1;
+                    j -= 1;
+                } else if (Ch == '\n' || Ch == '\r') {
+                    k += 1;
+                    Str[k] = '\n';
+                    j += 1;
+                    break;
+                }
+                /*
+                 * else if (Ch == '\0') { // Case not possible? }
+                 */
+                else if (Ch == '\t') {
+                    i = Options.Rows;
+                    break;
+                } else if (Ch == '\b' || Ch == 127) // \b or DEL
+                {
+                    if (j > 0) {
+                        System.out.print("\b \b");
+                        j -= 2;
+                        k -= 1;
+                    } else if (i > 0) {
+                        JFlag = true;
+                        i -= 2;
+                        k -= 1;
+                        break;
+                    } else {
+                        j -= 1;
+                    }
+                } else {
+                    if (Ch > 31 && Ch < 127) {
+                        if (SFlag > 0) {
+                            if ((Ch >= 'a' && Ch <= 'z') || (Ch >= 'A' && Ch <= 'Z')) {
+                                SFlag = 0;
+                            }
+                            j -= 1;
+                        } else {
+                            k += 1;
+                            Str[k] = Ch;
+                            System.out.print(Ch);
+                        }
+                    } else {
+                        j -= 1;
+                    }
+                }
+            }
+
+            if (!JFlag) {
+                EOL[i] = j - 1;
+            }
+        }
+
+        k += 1;
+        Str[k] = '\0';
+
+        return Str;
+    } // ReadBox
+
+    public static void WriteBox(char Str[], CFOpts Options) {
+        int i, j, k = 0;
+        char Ch;
+        ConsoleFun.FilledRect(Options);
+
+        for (i = 0; i < Options.Rows; i += 1) {
+            ConsoleFun.GotoRC(Options.Row + i, Options.Col);
+
+            for (j = 0; j < Options.Cols; j += 1) {
+                Ch = Str[k];
+
+                if (Ch == '\n') {
+                    k += 1;
+                    break;
+                } else if (Ch == '\r') {
+                    i -= 1;
+                    k += 1;
+                    break;
+                } else if (Ch == '\0') {
+                    i = Options.Row;
+                    break;
+                } else if (Ch == '\t') {
+                    System.out.print(" ");
+                } else if (Ch == '\b') {
+                    if (j > 0) {
+                        System.out.print("\b \b");
+                        j -= 1;
+                    }
+                } else {
+                    System.out.print(Ch);
+                }
+
+                k += 1;
+            }
+        }
+        return;
+    } // WriteBox
 
     public static void LoadLib(String relativePath) {
         String Arch = System.getProperty("os.arch");

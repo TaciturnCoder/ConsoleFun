@@ -8,27 +8,28 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-#ifdef __cplusplus
-extern "C"
+#ifdef ConsoleFun_CFOpts_
+#define ConsoleFun_SetColor_ 1
+
+void ConsoleFun_SetColor(int FG, int BG)
 {
-#endif
-
-#ifdef ConsoleFun_Include
-
-    void ConsoleFun_SetColor(int FG, int BG)
-    {
 #ifdef __linux__
-        printf("%c[%d;%dm", 0x1B, FG + 30, BG + 40);
+    printf("%c[%d;%dm", 0x1B, FG + 30, BG + 40);
 #elif _WIN32
-        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE hConsole;
+    if (ConsoleFun.Cache.hConsoleOut == NULL)
+    {
+        hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        ConsoleFun.Cache.hConsoleOut = hConsole;
+    }
+    else
+    {
+        hConsole = ConsoleFun.Cache.hConsoleOut;
+    }
 
-        SetConsoleTextAttribute(hConsole, BG * 16 + FG);
+    SetConsoleTextAttribute(hConsole, BG * 16 + FG);
 #endif
-        return;
-    } // ConsoleFun_SetColor
+    return;
+} // ConsoleFun_SetColor
 
-#endif // ConsoleFun_Include
-
-#ifdef __cplusplus
-}
-#endif
+#endif // ConsoleFun_CFOpts_

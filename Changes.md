@@ -10,6 +10,11 @@
 
 # Change Log
 
+### [31st October 2021]
+* Add GetCh method
+* Add CloneOpts method
+* Minor Fixes
+
 ### [29th October 2021]
 * Improved Build Process (Fixed issue #1 ?)
 * Improved Cross-Platform Method Syntax

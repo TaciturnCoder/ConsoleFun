@@ -40,6 +40,11 @@ JNIEXPORT jobject JNICALL Java_ConsoleFunJNI_ConsoleFun_GetOpts(JNIEnv *_Env, jc
     return _Options;
 }
 
+JNIEXPORT jchar JNICALL Java_ConsoleFunJNI_ConsoleFun_GetCh(JNIEnv *_Env, jclass _Class)
+{
+    return ConsoleFun.GetCh();
+}
+
 JNIEXPORT void JNICALL Java_ConsoleFunJNI_ConsoleFun_GotoRC(JNIEnv *_Env, jclass _Class, jint Row, jint Col)
 {
     ConsoleFun.GotoRC(Row, Col);

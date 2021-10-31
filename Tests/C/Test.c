@@ -13,24 +13,40 @@
 
 int main()
 {
+    char *Str;
     CFOpts Options = ConsoleFun.GetOpts();
 
     Options.BG = ConsoleFun.Color.Yellow;
     Options.Row = 0;
     Options.Col = 0;
-    ConsoleFun.EmptyRect(Options);
-
-    Options.Row = 2;
-    Options.Col = 2;
-    Options.Rows -= 4;
-    Options.Cols -= 4;
-    Options.FG = ConsoleFun.Color.Black;
-    Options.BG = ConsoleFun.Color.Red;
     ConsoleFun.FilledRect(Options);
 
-    ConsoleFun.GotoRC(10, 15);
-    ConsoleFun.SetColor(ConsoleFun.Color.Cyan, ConsoleFun.Color.Black);
-    printf("Hello World!");
+    Options.Row = 1;
+    Options.Col = 1;
+    Options.Rows -= 2;
+    Options.Cols -= 2;
+    Options.BG = ConsoleFun.Color.Red;
+    ConsoleFun.EmptyRect(Options);
+
+    Options.Row = 5;
+    Options.Col = 5;
+    Options.Rows = 5;
+    Options.Cols = 40;
+    Options.BG = ConsoleFun.Color.Black;
+    ConsoleFun.GotoRC(4, 5);
+
+    printf("Enter text Here: ");
+    Str = ConsoleFun.ReadBox(Options);
+
+    ConsoleFun.GotoRC(14, 5);
+    Options.Row = 15;
+    Options.FG = ConsoleFun.Color.Black;
+    Options.BG = ConsoleFun.Color.Cyan;
+
+    printf("You Entered: ");
+    ConsoleFun.WriteBox(Str, Options);
+
+    ConsoleFun.GetCh();
 
     return 0;
 }
