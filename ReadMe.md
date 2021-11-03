@@ -9,11 +9,11 @@
 [//]: # ( See the License for the permissions and limitations.                )
 
 # ConsoleFun
-Console Manipulation Functions
+Cross-Platform Console Manipulation Functions
 
 For C under Windows (32-bit & 64-bit) and Linux (32-bit & 64-bit)
 
-For Java (version 16 or higher) under JVM (64-bit only) using JNI (under Windows only)
+For Java under JVM (64-bit only) using JNI (under Windows and Linux only)
 
 ## Source Code
 Published at https://github.com/TaciturnCoder/ConsoleFun

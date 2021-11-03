@@ -8,10 +8,14 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-#ifdef ConsoleFun_
-#define ConsoleFun_CFOpts_ 1
+#ifdef ConsoleFun_H
+#define ConsoleFun_CFOpts_H 1
 
-typedef struct
+/**
+ * @brief ConsoleFun Options - Object to store frequently used data
+ *
+ */
+typedef struct ConsoleFun_CFOpts_
 {
     int Row;
     int Col;
@@ -26,6 +30,6 @@ typedef struct
 CFOpts ConsoleFun_CloneOpts(CFOpts Options)
 {
     return Options;
-}
+} // ConsoleFun_CloneOpts
 
-#endif // ConsoleFun_
+#endif // ConsoleFun_H

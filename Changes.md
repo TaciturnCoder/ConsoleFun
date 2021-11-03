@@ -10,6 +10,12 @@
 
 # Change Log
 
+### [3rd November 2021]
+* Add basic KeyMap
+* Redefine all functions
+* Restructure project folders
+* Add basic error detection
+
 ### [31st October 2021]
 * Add GetCh method
 * Add CloneOpts method

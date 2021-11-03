@@ -8,23 +8,30 @@
 //                                                                     //
 // See the License for the permissions and limitations.                //
 
-#ifdef ConsoleFun_CFOpts_
-#define ConsoleFun_FilledRect_ 1
+#ifdef ConsoleFun_H
+#define ConsoleFun_Utils_FilledRect_H 1
 
-void ConsoleFun_FilledRect(CFOpts Options)
+void ConsoleFun_Utils_FilledRect(CFOpts Options)
 {
-    CFOpts Temp = ConsoleFun.CloneOpts(Options);
+    CFOpts Temp;
 
-    for (; Temp.Rows > 0;)
+    ConsoleFun_Struct_Cache_Flag_ RequiredFlag = ConsoleFun.Struct.Cache.Flag.Init;
+
+    if ((ConsoleFun.Struct.Cache.Status & RequiredFlag) == RequiredFlag)
     {
-        ConsoleFun.EmptyRect(Temp);
-        Temp.Row += 1;
-        Temp.Col += 1;
-        Temp.Rows -= 2;
-        Temp.Cols -= 2;
+        Temp = ConsoleFun.CloneOpts(Options);
+
+        for (; Temp.Rows > 0;)
+        {
+            ConsoleFun.Utils.EmptyRect(Temp);
+            Temp.Row += 1;
+            Temp.Col += 1;
+            Temp.Rows -= 2;
+            Temp.Cols -= 2;
+        }
     }
 
     return;
-} // ConsoleFun_FilledRect
+} // ConsoleFun_Utils_FilledRect
 
-#endif // ConsoleFun_CFOpts_
+#endif // ConsoleFun_H

@@ -14,39 +14,42 @@
 int main()
 {
     char *Str;
-    CFOpts Options = ConsoleFun.GetOpts();
 
-    Options.BG = ConsoleFun.Color.Yellow;
+    ConsoleFun.Init();
+    CFOpts Options = ConsoleFun.Native.GetOpts();
+
+    Options.BG = ConsoleFun.Struct.Color.Yellow;
     Options.Row = 0;
     Options.Col = 0;
-    ConsoleFun.FilledRect(Options);
+    ConsoleFun.Utils.FilledRect(Options);
 
     Options.Row = 1;
     Options.Col = 1;
     Options.Rows -= 2;
     Options.Cols -= 2;
-    Options.BG = ConsoleFun.Color.Red;
-    ConsoleFun.EmptyRect(Options);
+    Options.BG = ConsoleFun.Struct.Color.Red;
+    ConsoleFun.Utils.EmptyRect(Options);
 
     Options.Row = 5;
     Options.Col = 5;
     Options.Rows = 5;
     Options.Cols = 40;
-    Options.BG = ConsoleFun.Color.Black;
-    ConsoleFun.GotoRC(4, 5);
+    Options.FG = ConsoleFun.Struct.Color.Blue;
+    Options.BG = ConsoleFun.Struct.Color.Black;
+    ConsoleFun.Native.GotoRC(4, 5);
 
     printf("Enter text Here: ");
-    Str = ConsoleFun.ReadBox(Options);
+    Str = ConsoleFun.Utils.InputBox(Options);
 
-    ConsoleFun.GotoRC(14, 5);
+    ConsoleFun.Native.GotoRC(14, 5);
     Options.Row = 15;
-    Options.FG = ConsoleFun.Color.Black;
-    Options.BG = ConsoleFun.Color.Cyan;
-
+    Options.FG = ConsoleFun.Struct.Color.Black;
+    Options.BG = ConsoleFun.Struct.Color.Cyan;
     printf("You Entered: ");
-    ConsoleFun.WriteBox(Str, Options);
+    ConsoleFun.Utils.PrintBox(Str, Options);
 
-    ConsoleFun.GetCh();
+    ConsoleFun.Native.GetCh();
+    ConsoleFun.Native.SetColor(ConsoleFun.NullOpts.FG, ConsoleFun.NullOpts.BG);
 
     return 0;
 }

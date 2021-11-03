@@ -8,9 +8,10 @@
 ## (                                                                     )
 ## ( See the License for the permissions and limitations.                )
 
-ConsoleFunJNI/ConsoleFunJNI_ConsoleFun.h
+ConsoleFunJNI/*.h
 
 .vscode/
+docs/
 
 *.exe
 *.class
@@ -19,3 +20,4 @@ ConsoleFunJNI/ConsoleFunJNI_ConsoleFun.h
 *.so
 
 *.log
+*.doxy.bak
